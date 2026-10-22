@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "docx": "^9.9.0",
+    "pdf-to-png-converter": "^4.2.1"
+  }
+}

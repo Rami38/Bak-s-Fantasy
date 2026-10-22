@@ -1,0 +1,26 @@
+ALTER TABLE player ADD COLUMN IF NOT EXISTS age INTEGER;
+ALTER TABLE player ADD COLUMN IF NOT EXISTS nationality TEXT;
+ALTER TABLE player ADD COLUMN IF NOT EXISTS shirt_number INTEGER;
+
+ALTER TABLE fixture ADD COLUMN IF NOT EXISTS home_goals INTEGER;
+ALTER TABLE fixture ADD COLUMN IF NOT EXISTS away_goals INTEGER;
+
+CREATE TABLE IF NOT EXISTS fantasy_league (
+  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name TEXT NOT NULL,
+  code TEXT NOT NULL UNIQUE,
+  created_by INTEGER NOT NULL REFERENCES app_user (id)
+);
+
+CREATE TABLE IF NOT EXISTS league_member (
+  league_id INTEGER NOT NULL REFERENCES fantasy_league (id),
+  user_id INTEGER NOT NULL REFERENCES app_user (id),
+  PRIMARY KEY (league_id, user_id)
+);
+
+CREATE TABLE IF NOT EXISTS manager_score (
+  user_id INTEGER NOT NULL REFERENCES app_user (id),
+  matchday INTEGER NOT NULL,
+  points INTEGER NOT NULL,
+  PRIMARY KEY (user_id, matchday)
+);

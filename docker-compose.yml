@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: fantasy
+      POSTGRES_PASSWORD: fantasy
+      POSTGRES_DB: ligue1_fantasy
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fantasy -d ligue1_fantasy"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
